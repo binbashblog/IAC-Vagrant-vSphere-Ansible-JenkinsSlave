@@ -2,4 +2,4 @@
   win_chocolatey:
     name: visualstudio2017professional
     state: latest
-    package_params: "--productKey NJXDT-CD9HJ-MFG6T-MWYTM-B4HT8"
+    #package_params: "--productKey "
