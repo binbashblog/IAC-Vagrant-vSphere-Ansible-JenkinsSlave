@@ -1,0 +1,3 @@
+dependencies:
+        - jenkins-user
+        - jenkins-master-addnode

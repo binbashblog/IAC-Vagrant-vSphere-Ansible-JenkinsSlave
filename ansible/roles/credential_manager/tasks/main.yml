@@ -1,0 +1,17 @@
+- name: "Create windows credential for remote source"
+  win_credential:
+    name: "{{ build_name_credm }}"
+    type: domain_password
+    username: "{{ build_user_credm }}"
+    secret: "{{ build_pass_credm }}"
+    update_secret: always
+    persistence: enterprise
+    state: present
+# become is required to access the credential manager
+  become: yes
+  become_method: runas
+  vars:
+    # this is not the credential username/pass but the user
+    # who's vault you want to save the credential in
+    ansible_become_user: "{{ jenkins_user }}"
+    ansible_become_pass: "{{ jenkins_pass }}"

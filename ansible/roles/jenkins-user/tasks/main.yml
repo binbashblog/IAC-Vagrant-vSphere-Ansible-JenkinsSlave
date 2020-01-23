@@ -1,0 +1,56 @@
+- name: Ensure user jenkins is present
+  win_user:
+    name: "{{ jenkins_user }}"
+    password: "{{ jenkins_pass }}"
+    state: present
+    groups:
+      - Users
+    password_never_expires: yes
+    update_password: always
+    user_cannot_change_password: yes
+
+- name: "Create a profile for the jenkins user at {{ jenkins_user_path }}"
+  win_user_profile:
+    username: "{{ jenkins_user }}"
+    name: "{{ jenkins_user }}"
+    state: present
+
+- name: "Ensures {{ jenkins_user_path }}\\\\.ssh dir exists"
+  win_file: 
+    path: "{{ jenkins_user_path }}\\\\.ssh"
+    state: directory
+
+- name: create the public SSH key
+  win_copy:
+    src: files/id_rsa.pub
+    dest: "{{ jenkins_user_path }}\\\\.ssh\\\\id_rsa.pub"
+
+- name: create the private ssh key
+  win_copy:
+    src: files/id_rsa
+    dest: "{{ jenkins_user_path }}\\\\.ssh\\\\id_rsa"
+
+- name: create the ssh known_hosts file
+  win_copy:
+    src: files/known_hosts
+    dest: "{{ jenkins_user_path }}\\\\.ssh\\\\known_hosts"
+
+- name: "create {{ jenkins_path }} working directory"
+  win_file:
+    path: "{{ jenkins_path }}"
+    state: directory
+
+- name: "Ensure jenkins user has full control of {{ jenkins_path }}"
+  win_acl:
+    path: "{{ jenkins_path }}"
+    user: "{{ jenkins_user }}"
+    rights: FullControl
+    type: allow
+    state: present
+    inherit: ContainerInherit, ObjectInherit
+
+- name: "Make jenkins the owner of {{ jenkins_path }}"
+  win_owner:
+    path: "{{ jenkins_path }}"
+    user: "{{ jenkins_user }}"
+    recurse: yes

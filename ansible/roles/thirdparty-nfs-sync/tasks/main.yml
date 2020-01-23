@@ -1,0 +1,7 @@
+---
+- name: Sync sherman2 thirdparty with local copy
+  win_robocopy:
+          src: "\\\sherman2\\\\build\\\\thirdparty\\\\win\\\\"
+          dest: "C:\\\\thirdparty\\\\"
+          flags: /MIR /ZB /NODCOPY /NOCOPY /nfl /R:3 /W:3 /mt:16 /TEE
+  ignore_errors: True

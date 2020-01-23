@@ -1,0 +1,4 @@
+- name: Ensure Git is installed
+  win_chocolatey:
+    name: git
+    state: present

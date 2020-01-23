@@ -1,0 +1,43 @@
+---
+#- name: Create slave home directory
+#  win_file:
+#    path: '{{ slave_windows_workdir }}'
+#    state: directory
+
+- name: Download slave.jar from master
+  win_copy:
+    src: "{{ role_path }}/files/slave.jar"
+    dest: "{{ slave_windows_workdir }}\\\\"
+    #remote_src: yes
+    force: false
+
+- name: Copy service file
+  win_template:
+    src: "{{ role_path }}/templates/service.cmd.j2"
+    dest: '{{ slave_windows_service_path }}\\\\service.cmd'
+
+- name: Install nssm
+  win_chocolatey:
+    name: nssm
+    state: present
+
+- name: Create a service via nssm
+  win_nssm:
+    name: '{{ slave_windows_service }}'
+    application: '{{ slave_windows_workdir }}\service.cmd'
+    state: present
+
+- name: add jenkins account to Log on as a service
+  win_user_right:
+    name: SeServiceLogonRight
+    users:
+    - .\Administrator
+    - '{{ansible_hostname}}\{{ slave_windows_service_user }}'
+    action: add
+
+- name: Start the service
+  win_service:
+    name: '{{ slave_windows_service }}'
+    username: '{{ slave_windows_service_user }}'
+    password: '{{ slave_windows_service_password }}'
+    state: started

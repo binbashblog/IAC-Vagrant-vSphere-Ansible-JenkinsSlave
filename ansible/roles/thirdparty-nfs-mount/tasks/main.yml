@@ -1,0 +1,8 @@
+- name: Map the /build share
+  win_mapped_drive:
+    letter: "{{ thirdparty_drive }}"
+    path: "{{ thirdparty_mount }}"
+    state: present
+  become: yes
+  become_method: runas
+  become_user: SYSTEM

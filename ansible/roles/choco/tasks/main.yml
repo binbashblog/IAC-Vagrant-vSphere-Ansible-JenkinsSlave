@@ -1,0 +1,4 @@
+- name: Ensure Chocolatey is installed
+  win_chocolatey:
+    name: chocolatey
+    state: present

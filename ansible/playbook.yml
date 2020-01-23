@@ -1,0 +1,32 @@
+# ansible/playbook.yml
+---
+- hosts: all
+  gather_facts: yes
+   
+  roles:
+     - time
+     - win_updates
+     - choco
+     - choco_upgrade
+     - WindowsFirewall-disable
+     - WindowsDefender-disable
+     - jenkins-user
+     - openjdk8
+     - git
+     - credential_manager
+     - windows_sdk71
+     - vs2010pro
+     - vs2017pro
+     - vs2017_cplusplus
+     - vs2017_dotnet
+     - nsis
+     - nuget_cmd
+     - thirdparty-nfs-install
+          #- thirdparty-nfs-mount
+     - jenkins-master-addnode
+     - jenkins-slave-install
+     - thirdparty-nfs-sync
+     - thirdparty-nfs-sync-sched
+
+  vars_files:
+    - vars/vars.yml

@@ -1,0 +1,51 @@
+---
+# vars/vars.yml
+
+# local admin credentials
+ build_admin: administrator
+ build_pass: CHANGEME
+
+# time
+ ntp_time_server: CH.AN.GE.ME 
+
+# credential manger role
+ build_name_credm: CH.AN.GE.ME
+ build_user_credm: build@win
+ build_pass_credm: "CHANGEME"
+
+### nuget roles
+ nuget_source_name: "\"Package Source (CVS)\""
+ nuget_source: "http://CH.AN.GE.ME/nuget"
+
+### Thirdparty roles
+ thirdparty_mount: ":/build"
+ thirdparty_drive: "T"
+ thirdparty_mountopts: "-o anon"
+
+### Jenkins roles
+# jenkins service account
+ jenkins_user: jenkins
+ jenkins_pass: 'CHANGEME'
+ jenkins_user_path: "c:\\\\users\\\\jenkins"
+ jenkins_path: "c:\\\\jenkins"
+# jenkins master
+ master_username: ansible
+ master_password: 'CHANGEME'
+ master_host: CH.AN.GE.ME
+ master_port: 8080
+ master_url: "http://{{ master_host }}:{{ master_port }}"
+# general slave
+ slave_agent_name: "{{ inventory_hostname }}"
+ slave_executors_num: 4
+ slave_environments: {}
+ slave_mode_exclusive: true
+# jenkins windows slave
+ slave_windows_service: jenkins-slave
+ slave_windows_service_path: C:\jenkins\
+ slave_windows_workdir: "C:\\\\jenkins"
+ slave_windows_java_opts: ""
+ slave_windows_labels:
+         - win
+         - "{{ inventory_hostname }}"
+ slave_windows_service_user: "{{ jenkins_user }}"
+ slave_windows_service_password: "{{ jenkins_pass }}"

@@ -1,0 +1,4 @@
+- name: Ensure visualstudio2017-workload-nativedesktop is installed
+  win_chocolatey:
+    name: visualstudio2017-workload-nativedesktop
+    state: present

@@ -1,0 +1,4 @@
+- name: Disable Windows Defender via config
+  win_chocolatey:
+    name: disabledefender-winconfig
+    state: present

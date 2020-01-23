@@ -1,0 +1,12 @@
+---
+- name: Ensures the Windows time service is enabled
+  win_service:
+    name: W32Time
+    state: started
+    start_mode: delayed
+
+- name: Configure windows to sync with an external time server
+  win_command: "w32TM /config /syncfromflags:manual /manualpeerlist:{{ ntp_time_server }} /reliable:yes /update"
+
+- name: Force resync with external time server
+  win_command: "w32tm /resync"

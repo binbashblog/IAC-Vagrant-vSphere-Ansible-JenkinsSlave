@@ -1,0 +1,3 @@
+---
+- name: nfs restart
+  win_shell: net stop nfsclnt \&& net stop nfsrdr \&& net start nfsrdr \&& net start nfsclnt

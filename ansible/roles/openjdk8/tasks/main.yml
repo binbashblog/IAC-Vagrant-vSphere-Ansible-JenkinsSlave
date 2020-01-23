@@ -1,0 +1,9 @@
+- name: Ensure open jdk 8 is installed
+  win_chocolatey:
+    name: openjdk8
+    state: present
+
+- name: Ensure openjdk8's path is present on the global system path
+  win_path:
+    elements:
+    - 'C:\Program Files\OpenJDK\openjdk*\bin'

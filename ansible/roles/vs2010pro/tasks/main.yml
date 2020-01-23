@@ -1,0 +1,24 @@
+- name: Download Visual Studio Pro 2010 installer files locally
+  win_copy:
+    src: "\\\\installers\\\\VS2010Pro"
+    dest: "C:\\\\"
+    remote_src: yes
+    force: no
+
+- name: Install VS2010Pro
+  win_package:
+    path: "C:\\\\VS2010Pro\\\\Setup\\\\setup.exe"
+    arguments: '/q'
+    #creates_path: 'C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\devenv.exe'
+    #creates_version: '10.0.30319'
+    product_id: 'Microsoft Visual Studio 2010 Professional - ENU'
+    ensure: present
+
+- name: Install VS2010Pro SP1 update
+  win_package:
+    path: "C:\\\\VS2010Pro\\\\2010SP1\\\\setup.exe"
+    arguments: '/q'
+    #creates_path: 'C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\devenv.exe'
+    #creates_version: '10.0.40219'
+    product_id: 'Microsoft Visual Studio 2010 Service Pack 1'
+    ensure: present

@@ -1,0 +1,18 @@
+---
+- name: Add node to jenkins master
+  delegate_to: 127.0.0.1
+  jenkins_script:
+    url: '{{ master_url }}'
+    user: '{{ master_username }}'
+    password: '{{ master_password }}'
+    timeout: 240
+    validate_certs: no
+    script: "{{ lookup('template', 'add_windows_slave.groovy.j2') }}"
+  register: jenkins_script
+  
+- debug:
+    var: jenkins_script 
+
+- name: Grab the slave node secret from the master
+  set_fact:
+    jenkins_slave_secret: '{{ jenkins_script.output }}'

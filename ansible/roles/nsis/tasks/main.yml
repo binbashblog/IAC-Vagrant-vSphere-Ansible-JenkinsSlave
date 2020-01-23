@@ -1,0 +1,4 @@
+- name: Ensure nsis is installed
+  win_chocolatey:
+    name: nsis
+    state: present

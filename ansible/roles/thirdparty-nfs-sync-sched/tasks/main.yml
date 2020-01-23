@@ -1,0 +1,19 @@
+- name: copy thirdparty sync script to C:\thirdparty
+  win_copy:
+    src: "{{ role_path }}/files/thirdparty_sync.ps1"
+    dest: "C:\\\\thirdparty\\\\"
+
+- name: Create a scheduled task to sync thirdparty every 4 hours and run straight away
+  win_scheduled_task:
+    name: thirdparty_sync
+    description: run the thirdparty sync script
+    actions:
+    - path: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+      arguments: -ExecutionPolicy Unrestricted -NonInteractive -File C:\thirdparty\thirdparty_sync.ps1
+    triggers:
+    - type: registration
+      repetition:
+        interval: PT4H
+        stop_at_duration_end: yes
+    username: "{{ jenkins_user }}"
+    password: "{{ jenkins_pass }}"

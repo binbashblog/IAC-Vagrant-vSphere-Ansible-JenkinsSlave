@@ -1,0 +1,4 @@
+- name: Ensure visualstudio2017-workload-manageddesktop is installed
+  win_chocolatey:
+    name: visualstudio2017-workload-manageddesktop
+    state: present

@@ -1,0 +1,4 @@
+- name: Ensure Nuget Commandline is installed
+  win_chocolatey:
+    name: nuget.commandline
+    state: present

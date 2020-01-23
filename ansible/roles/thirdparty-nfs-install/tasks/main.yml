@@ -1,0 +1,20 @@
+---
+- name: Install NFS-Client
+  win_feature:
+    name: NFS-Client
+ 
+- name: Create registry key with root uid to enable UNIX write permissions for Windows NFS-Client 
+  win_regedit:
+    path: HKLM:\Software\Microsoft\ClientForNFS\CurrentVersion\Default
+    name: AnonymousUid
+    data: 0
+    type: dword
+  notify: nfs restart
+
+- name: Create registry key with root gid to enable UNIX write permissions for Windows NFS-Client
+  win_regedit:
+    path: HKLM:\Software\Microsoft\ClientForNFS\CurrentVersion\Default
+    name: AnonymousGid
+    data: 0
+    type: dword
+  notify: nfs restart

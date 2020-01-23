@@ -1,0 +1,4 @@
+- name: Ensure windows-sdk-7.1 is installed
+  win_chocolatey:
+    name: windows-sdk-7.1
+    state: present
